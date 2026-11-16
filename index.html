@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PulseGrid Live Dashboard</title>
+<link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+<header class="site-header">
+<h1>PulseGrid</h1>
+<p class="status"><span class="dot" aria-hidden="true"></span> Live</p>
+<button id="refreshBtn" type="button">Refresh</button>
+<p id="updatedAt">Updated: not yet</p>
+</header>
+<nav class="sidebar" aria-label="Dashboard sections">
+<a href="#readings">Readings</a>
+<a href="#sensors">Sensors</a>
+<a href="#summary">Summary</a>
+<a href="#terrain">3D Terrain</a>
+<a href="#observe">Add Observation</a>
+</nav>
+<main class="dashboard">
+<section id="readings" aria-label="Live readings"><h2>Live Readings</h2>
+<!-- 3.1 Solo PBL step 1 markup, verbatim -->
+<p id="feed-status">Feed status: waiting</p>
+<h2>Temperature</h2>
+<p id="temperature-card">Loading...</p>
+<p id="temperature-note"></p>
+<h2>Humidity</h2>
+<p id="humidity-card">Loading...</p>
+<p id="humidity-note"></p>
+<h2>PM2.5</h2>
+<p id="pm25-card">Loading...</p>
+<p id="pm25-note"></p>
+<h2>PM10</h2>
+<p id="pm10-card">Loading...</p>
+<p id="pm10-note"></p>
+<h2>Gap Report</h2>
+<p id="gap-report">No gaps checked yet.</p>
+</section>
+<section id="sensors" aria-label="Sensor cards"><h2>Sensors</h2>
+<!-- 4.1 widget set, verbatim values from the Solo PBL table + foundation skeleton, with the 4.1 Skill Drill fixes applied (real h2, live region, named button) -->
+<section aria-labelledby="air-title">
+<h2 id="air-title">Air quality</h2>
+<p>Air quality: <span id="air-value" aria-live="polite" aria-atomic="true">42 — Good</span></p>
+<button type="button" aria-label="View hourly trend">View hourly trend</button>
+</section>
+<section aria-labelledby="temp-title">
+<h2 id="temp-title">Temperature</h2>
+<p>Temperature: <span aria-live="polite" aria-atomic="true">21°C — Mild</span></p>
+<button type="button" aria-label="View hourly trend">View hourly trend</button>
+</section>
+<section aria-labelledby="wind-title">
+<h2 id="wind-title">Wind</h2>
+<p>Wind: <span aria-live="polite" aria-atomic="true">14 km/h — Breezy</span></p>
+<button type="button" aria-label="View hourly trend">View hourly trend</button>
+</section>
+<button type="button" aria-pressed="false">Poor air alert</button>
+</section>
+<section id="summary" aria-label="Summary"><h2>Summary</h2>
+<!-- 3.2 Bit-by-Bit step 1: section named Summary beside the readings panel. Panel shows the checked summary + time of last update + link to ai-log.md -->
+<p id="summary-status">Summary status: waiting</p>
+<p id="summary-panel">No summary yet.</p>
+<p id="summary-updated">Last update: not yet</p>
+<p><a href="pulsegrid/ai-log.md">Read the check log (ai-log.md)</a></p>
+<h3>Review box</h3>
+<ul id="review-box"></ul>
+</section>
+<section id="terrain" aria-label="3D Terrain"><h2>3D Terrain</h2>
+<!-- 3.3 Bit-by-Bit step 5: the 3D canvas sits in its own widget box; legend beside it. Embed per W9. Colour scale line per 3.3 Bit-by-Bit step 4 (README) -->
+<iframe src="terrain-3d.html" width="600" height="400" title="PulseGrid 3D terrain" loading="lazy"></iframe>
+<p>Legend: green means clean air under 50. Amber means moderate air from 50 to 99. Red means bad air at 100 or more.</p>
+</section>
+<section id="observe" aria-label="Observation form"><h2>Add Observation</h2>
+<!-- 2.1 Explore form HTML verbatim, PLUS the four elements the Solo PBL submit handler reads (see W10): aqi-reading field, form-message, blocked-log, observation-list -->
+<form id="observation-form">
+<label for="observer-name">Your name</label>
+<input type="text" id="observer-name" name="observer-name" maxlength="40" minlength="2" required>
+<label for="place">Place</label>
+<select id="place" name="place" required>
+<option value="riverside-park">Riverside Park</option>
+<option value="north-school">North School</option>
+<option value="market-square">Market Square</option>
+</select>
+<label for="aqi-reading">Air quality reading</label>
+<input type="number" id="aqi-reading" name="aqi-reading" min="0" max="500" required>
+<label for="note">Observation</label>
+<textarea id="note" name="note" rows="4" maxlength="280" minlength="10" required></textarea>
+<button type="submit">Send observation</button>
+</form>
+<p id="form-message"></p>
+<h3>Blocked attempts</h3>
+<ul id="blocked-log"></ul>
+<h3>Observations</h3>
+<ul id="observation-list"></ul>
+<!-- 2.2 Bit-by-Bit widget: encrypted readings, below the form -->
+<h3>Stored Readings — Encrypted</h3>
+<p id="store-status">Locked: 3 records</p>
+<label for="role-select">Role</label>
+<select id="role-select">
+<option value="viewer" selected>viewer</option>
+<option value="editor">editor</option>
+<option value="admin">admin</option>
+</select>
+<button id="unlockBtn" type="button">Unlock readings</button>
+<ul id="locked-list"></ul>
+</section>
+</main>
+<script src="dashboard.js"></script>
+</body>
+</html>
