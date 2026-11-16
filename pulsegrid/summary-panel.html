@@ -1,0 +1,31 @@
+<h1>PulseGrid Summary</h1>
+<p id="summary-status">Summary status: waiting</p>
+<p id="summary-panel">No summary yet.</p>
+<h2>Review box</h2>
+<ul id="review-box"></ul>
+<script>
+const summaryLines = {
+  good: "Air quality is good today. Outdoor sport is fine for most students.",
+  moderate: "Air quality is moderate today. Outdoor sport is fine for most students.",
+  sensitive: "Air quality is unhealthy for sensitive groups today. Sensitive groups should take it easy outdoors.",
+  unhealthy: "Air quality is unhealthy today. Outdoor sport should move indoors.",
+  veryUnhealthy: "Air quality is very unhealthy today. Stay indoors if you can.",
+  hazardous: "Air quality is hazardous today. Stay indoors."
+};
+function pickLine(aqi) {
+  if (aqi <= 50) { return summaryLines.good; }
+  if (aqi <= 100) { return summaryLines.moderate; }
+  if (aqi <= 150) { return summaryLines.sensitive; }
+  if (aqi <= 200) { return summaryLines.unhealthy; }
+  if (aqi <= 300) { return summaryLines.veryUnhealthy; }
+  return summaryLines.hazardous;
+}
+const banned = ["cure", "safe for everyone", "guaranteed"];
+function checkSummary(text, liveAqi) {
+  for (const word of banned) {
+    if (text.toLowerCase().includes(word)) { return "BLOCKED: banned word."; }
+  }
+  if (text.includes("40 percent") && liveAqi !== 40) { return "FLAGGED: number does not match."; }
+  return "PASS";
+}
+</script>
