@@ -113,7 +113,7 @@ function render() {
   const latest = state.readings[state.readings.length - 1];
   const status = document.getElementById("feed-status");
   status.textContent = "Feed status: weather " + state.weatherFeed + ", air " + state.airFeed + ", updated " + state.lastUpdated;
-  setCard("temperature-card", "temperature-note", latest, "temperature", " \u00b0C");
+  setCard("temperature-card", "temperature-note", latest, "temperature", " °C");
   setCard("humidity-card", "humidity-note", latest, "humidity", " %");
   setCard("pm25-card", "pm25-note", latest, "pm25", "");
   setCard("pm10-card", "pm10-note", latest, "pm10", "");
