@@ -1,0 +1,16 @@
+/* tokens.css — 4.1 Solo PBL steps 2, 13, 14.
+   [GAP] The book never prints a hex value for any token; it names only
+   --color-surface-card, --color-text-main, --color-action and --color-focus.
+   The hex values below are the Figma-run substitutes from the build brief
+   (m4-1-shot-3), NOT book values. The soft-text and status token names are
+   build choices; the book names no soft-text token and no status tokens. */
+:root {
+  --color-surface-card: #FFFFFF;
+  --color-text-main: #111827;
+  --color-text-soft: #475569;
+  --color-action: #1D4ED8;
+  --color-focus: #000000;
+  --color-status-good: #15803D;
+  --color-status-fair: #92400E;
+  --color-status-poor: #B91C1C;
+}
