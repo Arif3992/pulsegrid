@@ -1,0 +1,27 @@
+<h1>PulseGrid Rain Model</h1>
+<p id="status">Connecting...</p>
+<p id="reading">No reading yet.</p>
+<script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
+<script>
+const options = { inputs: 2, outputs: 1, task: "regression", debug: true };
+const nn = ml5.neuralNetwork(options);
+nn.addData([18, 85], [1]);
+nn.addData([20, 90], [1]);
+nn.addData([24, 45], [0]);
+nn.addData([28, 30], [0]);
+nn.addData([16, 92], [1]);
+nn.addData([26, 55], [0]);
+nn.addData([19, 78], [1]);
+nn.addData([30, 25], [0]);
+nn.normalizeData();
+nn.train({ epochs: 50 }, () => {
+  document.getElementById("status").textContent = "Training done.";
+});
+function predictRain(temp, humidity) {
+  nn.predict([temp, humidity], (err, results) => {
+    const chance = Math.round(results[0].value * 100);
+    document.getElementById("reading").textContent = "Rain chance: " + chance + "%.";
+  });
+}
+predictRain(22, 88);
+</script>
